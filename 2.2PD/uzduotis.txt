@@ -1,0 +1,2 @@
+1.	Parašykite programą, kuri apskaičiuotų visų 
+lyginių skaičių sandaugą intervale [10;20].
