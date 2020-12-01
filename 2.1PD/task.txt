@@ -1,0 +1,2 @@
+5.	Parašykite programą, kuri atspausdintų 40 
+tokių skaičių, kurie dalijasi iš kiekvieno savo skaitmens.
