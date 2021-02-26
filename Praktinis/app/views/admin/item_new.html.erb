@@ -1,0 +1,19 @@
+<h2>
+</h2>
+<form action="new_item_to_db" method="post" class="w3-container">
+    <div class="custom-select" style="width:200px;">
+    <select name="category_id" required>
+        <%for i in 0..@category_list.length-1%>
+        <option name value=<%=@category_list[i].id%>><%=@category_list[i].title%></option>
+        <%end%>
+    </select>
+    </div>
+    <input name="item_id" class="w3-input w3-border" type="hidden" %>
+    <label class="w3-text-blue"><b>Pavadinimas</b></label>
+    <input name="title" class="w3-input w3-border" type="text" required %>
+    <label class="w3-text-blue"><b>Aprašymas</b></label>
+    <input name="description" class="w3-input w3-border" type="text" required %>
+    <label class="w3-text-blue"><b>Kaina</b></label>
+    <input name="price" class="w3-input w3-border" type="text" required %>
+    <button type ="submit" class="w3-btn w3-blue">Įdėti prekę</button>
+</form>

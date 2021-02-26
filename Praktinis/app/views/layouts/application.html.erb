@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shop</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <h1 class="header">Parduotuvė: Ikigoryi</h1>
+  <%if session[:user]!=nil then%>
+    <%if User.find_by(user_type: session[:user]['user_type'].to_s).user_type=="admin" then%>
+      <h2>Administratoriaus panelė</h2>
+      <div class="w3-bar w3-border w3-black">
+        <a href="/admin/admin_page" class="w3-bar-item w3-button w3-mobile right_allign">Namai</a>
+        <a href="/admin/user_display" class="w3-bar-item w3-button w3-mobile right_allign">Naudotojai</a>
+        <a href="/admin/item_display" class="w3-bar-item w3-button w3-mobile right_allign">Egzistuojančios prekės</a>
+        <a href="/admin/item_new" class="w3-bar-item w3-button w3-mobile right_allign">Pridėti prekę</a>
+        <form action="../user/logout" method="post">
+        <div class="topnav-right">
+          <button type="submit"  class="w3-bar-item w3-button w3-mobile">Atsijungti</button>
+        </div>
+        </form>
+      </div>
+    <%else%>
+      <%if User.find_by(user_type: session[:user]['user_type'].to_s).user_type=="" then%>
+        <h2>Sveiki prisijungus</h2>
+        <div class="w3-bar w3-border w3-black">
+          <a href="/user/user_page" class="w3-bar-item w3-button w3-mobile right_allign">Namai</a>
+          <div class="topnav-right">
+          <form action="/user/logout" method="post">
+           <button type="submit"  class="w3-bar-item w3-button w3-mobile">Atsijungti</button>
+          </div>
+          </form>
+        </div>
+        <%end%>
+      <%end%>
+  <%else%>
+      <div class="w3-bar w3-border w3-black">
+        <div class="topnav-left">
+          <a href="/" class="w3-bar-item w3-button w3-mobile right_allign">Namai</a>
+        </div>
+        <div class="topnav-right">
+          <a href="/user/login" class="w3-bar-item w3-button w3-mobile right_allign">Prisijungti</a>
+          <a href="/user/user_register" class="w3-bar-item w3-button w3-mobile right_allign">Registruotis</a>
+        </div>
+      </div> 
+    <%end%>
+  <%= yield %>
+  </body>
+
+  <div class="footer">
+  <p>Susisiekite su mumis el. paštu: ikigoryi@shop.co.uk</p>
+  </div>
+
+</html>

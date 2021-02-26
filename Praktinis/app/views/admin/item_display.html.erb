@@ -1,0 +1,51 @@
+<h2>Prekės</h2>
+<form action="query_items_action" method="post" class="w3-container">
+    <div class="custom-select" style="width:200px;">
+            <select name="pasirinkta_kategorija">
+            <option value="0">Pasirinkite kategorija</option>
+            <%for i in 0..@category_list.length-1%>
+            <option name value=<%=@category_list[i].id%>><%=@category_list[i].title%></option>
+            <%end%>
+        </select>
+    </div>
+    <label class="w3-text-blue"><b>Paieskos raktazodis:</b></label>
+    <input name="raktazodis" class="w3-input w3-border" type="text" ><br>
+        <button type ="submit" class="w3-btn w3-blue">Ieskoti</button>
+</form>
+<%if @msg!=nil then%>
+    <%for i in 0..@msg.length-1%>
+        <%for j in 0..@products.length-1%>
+            <%if @products[j].id==@msg[i].to_i then%>
+                <div class="w3-card w3-white card-padding">
+                    <div class="inline"> <!-- Aprasai -->
+                       <p class="data_allign_right">Produkto informacija:</p>
+                    </div> <!-- Reiksmes -->
+                    <div class="inline">
+                     <p class="data_allign_left"><%=Category.find_by(id: @products[j].category_id).title%> </p>
+                        <p class="data_allign_left"><%="Produkto ID: " + Product.find_by(id: @products[j].id).id.to_s%> </p>
+                        <p class="data_allign_left"><%="Produkto pavadinimas: " + @products[j].title%></p>
+                        <p class="data_allign_left"><%="Produkto aprašymas: " + @products[j].description%></p>
+                        <p class="data_allign_left"><%="Produkto kaina: " + @products[j].price.to_s%></p>
+                    </div>
+                    <div class="inline"> <!-- Mygtukai -->
+                        <form action="update_item_action" method="post">
+                            <input type = "hidden" name = "id" value = <%=@products[j].id%> />
+                            <button type="submit" class="w3-button w3-black">Redaguoti</button>
+                        </form><br>
+                        <form action="delete_item_action" method="post">
+                            <input type = "hidden" name = "id" value = <%=@products[j].id%> />
+                            <button type="submit" class="w3-button w3-black">Istrinti</button>
+                        </form>
+                    </div>
+                </div>
+                
+            <%end%>
+        <%end%>
+    <%end%>
+<%else%>
+<%if @msg=='dp' then%>
+        <h2>Duomenys pakeisti sekmingai</h2>
+    <%else%>
+        <h2>Prekiu nerasta</h2>
+    <%end%>
+<%end%> 

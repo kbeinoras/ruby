@@ -1,0 +1,38 @@
+<h2>Naudotojai</h2>
+<form action="query_users_action" method="post" class="w3-container">
+    <div class="custom-select" style="width:200px;">
+    </div>
+    <label class="w3-text-blue"><b>Paieskos raktazodis:</b></label>
+    <input name="raktazodis" class="w3-input w3-border" type="text" ><br>
+        <button type ="submit" class="w3-btn w3-blue">Ieskoti</button>
+</form>
+<%if @msg!=nil then%>
+    <%for i in 0..@msg.length-1%>
+        <%for j in 0..@users.length-1%>
+            <%if @users[j].id==@msg[i].to_i then%>
+                <div class="w3-card w3-white card-padding">
+                    <div class="inline"> <!-- Aprasai -->
+                       <p class="data_allign_right">Naudotojo informacija:</p>
+                    </div> <!-- Reiksmes -->
+                    <div class="inline">
+                        <p class="data_allign_left"><%="Naudotojo ID: " + User.find_by(id: @users[j].id).id.to_s%> </p>
+                        <p class="data_allign_left"><%="Naudotojo slapyvardis: " + @users[j].username%></p>
+                    </div>
+                    <div class="inline"> <!-- Mygtukai -->
+                        <form action="delete_user_action" method="post">
+                            <input type = "hidden" name = "id" value = <%=@users[j].id%> />
+                            <button type="submit" class="w3-button w3-black">Istrinti</button>
+                        </form>
+                    </div>
+                </div>
+                
+            <%end%>
+        <%end%>
+    <%end%>
+<%else%>
+<%if @msg=='dp' then%>
+        <h2>Duomenys pakeisti sekmingai</h2>
+    <%else%>
+        <h2>Naudotoju nerasta</h2>
+    <%end%>
+<%end%> 

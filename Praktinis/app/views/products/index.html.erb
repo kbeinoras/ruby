@@ -1,0 +1,15 @@
+<h2>
+    <%= link_to "Kategorijos", root_path%> / 
+    <%= @category.title %>/ 
+    Products 
+</h2>
+
+<ol>
+    <% @products.each do |product|%>
+    <li>
+        <%= product.title %> (<%= number_to_currency product.price %>)
+
+   
+    </li>
+    <% end %>
+</ol>
